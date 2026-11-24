@@ -141,7 +141,7 @@ export function buildGoogleMapsUrl(
 }
 
 /**
- * Membuat URL undangan dengan format domain kustom (contoh: https://namadomain.biz.id/aditya-amanda?to=Aditya)
+ * Membuat URL undangan dengan format domain kustom (contoh: https://namadomain.biz.id/naufal-amanda?to=Naufal)
  */
 export function buildCustomMyIdUrl(
   domain: string,
@@ -155,7 +155,7 @@ export function buildCustomMyIdUrl(
   const safeDomain = cleanDomain.includes('.')
     ? cleanDomain
     : `${cleanDomain}.my.id`;
-  const cleanSlug = (slug || 'aditya-amanda')
+  const cleanSlug = (slug || 'naufal-amanda')
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9-]/g, '-')
@@ -176,7 +176,7 @@ export function buildCustomMyIdUrl(
 export function buildLivePreviewUrl(slug: string, guestName?: string): string {
   if (typeof window === 'undefined') return '';
   const origin = window.location.origin;
-  const cleanSlug = (slug || 'aditya-amanda')
+  const cleanSlug = (slug || 'naufal-amanda')
     .trim()
     .toLowerCase()
     .replace(/[^a-z0-9-]/g, '-')

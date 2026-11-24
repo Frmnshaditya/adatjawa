@@ -13,19 +13,19 @@ export const PRESET_PHOTOS = {
  * maupun diperbarui melalui Panel Pengaturan Undangan di aplikasi.
  */
 export const DEFAULT_WEDDING_CONFIG: WeddingConfig = {
-  id: 'basic-aditya-amanda',
+  id: 'basic-naufal-amanda',
   theme: 'modern-minimalist',
   domain: 'undangankita.my.id',
-  slug: 'aditya-amanda',
+  slug: 'naufal-amanda',
   mainDate: '2026-12-20',
   coverPhoto: PRESET_PHOTOS.cover,
   heroPhoto: PRESET_PHOTOS.hero,
   openingText:
     'Atas rahmat Tuhan Yang Maha Esa, kami bermaksud menyelenggarakan pernikahan putra-putri kami.',
   groom: {
-    fullName: 'Aditya Firmansah',
-    nickname: 'Aditya',
-    fatherName: 'Bpk. Hendra Firmansah',
+    fullName: 'Naufal',
+    nickname: 'Naufal',
+    fatherName: 'Bpk. Hendra Wijaya',
     motherName: 'Ibu Sri Rahayu',
     childOrderText: 'Putra Pertama dari',
     photo: PRESET_PHOTOS.groom,

@@ -252,7 +252,7 @@ export const AdminConfigDrawer: React.FC<AdminConfigDrawerProps> = ({
                     onChange={(e) =>
                       onUpdateConfig({ ...config, slug: e.target.value })
                     }
-                    placeholder="aditya-amanda"
+                    placeholder="naufal-amanda"
                     className="w-full min-h-[44px] px-3.5 py-2 rounded-lg text-sm"
                     style={inputStyle}
                   />
@@ -1002,7 +1002,7 @@ export const AdminConfigDrawer: React.FC<AdminConfigDrawerProps> = ({
                   type="text"
                   value={guestName}
                   onChange={(e) => onUpdateGuestName(e.target.value)}
-                  placeholder="Contoh: Aditya atau Tamu Undangan"
+                  placeholder="Contoh: Naufal atau Tamu Undangan"
                   className="w-full min-h-[44px] px-3.5 py-2 rounded-lg text-sm"
                   style={inputStyle}
                 />

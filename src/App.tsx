@@ -19,7 +19,7 @@ import { DEFAULT_WEDDING_CONFIG } from './config/weddingData';
 import { WeddingConfig } from './types/wedding';
 import { isRootDomainAccess } from './utils/urlAndTime';
 
-const STORAGE_KEY = 'sakinah_basic_invitation_config_v1';
+const STORAGE_KEY = 'sakinah_basic_invitation_config_v2';
 
 function loadSavedConfig(): WeddingConfig {
   if (typeof window === 'undefined') return DEFAULT_WEDDING_CONFIG;
