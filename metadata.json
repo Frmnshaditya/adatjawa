@@ -1,0 +1,6 @@
+{
+  "name": "Sakinah — Undangan Pernikahan Digital",
+  "description": "Website undangan pernikahan digital elegan, modern, dan responsif dengan 6 pilihan tema adat dan modern serta pengelolaan data yang mudah disesuaikan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
