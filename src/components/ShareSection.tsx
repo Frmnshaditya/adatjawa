@@ -3,7 +3,6 @@ import { Check, Copy, Link2, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ThemeDefinition, WeddingConfig } from '../types/wedding';
 import {
-  buildCustomMyIdUrl,
   buildLivePreviewUrl,
   buildWhatsAppShareUrl,
 } from '../utils/urlAndTime';
@@ -22,12 +21,9 @@ export const ShareSection: React.FC<ShareSectionProps> = ({
   const [targetGuest, setTargetGuest] = useState<string>(
     currentGuestName === config.defaultGuestName ? '' : currentGuestName
   );
-  const [useMyIdLink, setUseMyIdLink] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
 
-  const myIdUrl = buildCustomMyIdUrl(config.domain, config.slug, targetGuest);
-  const liveUrl = buildLivePreviewUrl(config.slug, targetGuest);
-  const activeShareUrl = useMyIdLink ? myIdUrl : liveUrl || myIdUrl;
+  const activeShareUrl = buildLivePreviewUrl(config.slug, targetGuest);
   const whatsappUrl = buildWhatsAppShareUrl(activeShareUrl);
 
   const handleCopy = async () => {
@@ -109,51 +105,6 @@ export const ShareSection: React.FC<ShareSectionProps> = ({
                 color: theme.palette.textPrimary,
               }}
             />
-          </div>
-
-          {/* Toggle Format Link: Link Aktif Browser vs Format Domain .my.id */}
-          <div className="flex items-center justify-between gap-3 mb-4 text-xs">
-            <span style={{ color: theme.palette.textMuted }}>
-              Format Tautan Undangan
-            </span>
-            <div
-              className="inline-flex rounded-lg p-0.5"
-              style={{
-                backgroundColor: theme.palette.canvasBg,
-                border: `1px solid ${theme.palette.borderHairline}`,
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => setUseMyIdLink(false)}
-                className="px-3 py-1.5 rounded-md font-medium transition-colors whitespace-nowrap cursor-pointer"
-                style={{
-                  backgroundColor: !useMyIdLink
-                    ? theme.palette.accent
-                    : 'transparent',
-                  color: !useMyIdLink
-                    ? theme.palette.accentText
-                    : theme.palette.textSecondary,
-                }}
-              >
-                Link Aktif
-              </button>
-              <button
-                type="button"
-                onClick={() => setUseMyIdLink(true)}
-                className="px-3 py-1.5 rounded-md font-medium transition-colors whitespace-nowrap cursor-pointer"
-                style={{
-                  backgroundColor: useMyIdLink
-                    ? theme.palette.accent
-                    : 'transparent',
-                  color: useMyIdLink
-                    ? theme.palette.accentText
-                    : theme.palette.textSecondary,
-                }}
-              >
-                Domain .my.id
-              </button>
-            </div>
           </div>
 
           {/* Preview Box Link */}
