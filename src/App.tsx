@@ -17,6 +17,7 @@ import {
 import { WEDDING_THEMES } from './config/themes';
 import { DEFAULT_WEDDING_CONFIG } from './config/weddingData';
 import { WeddingConfig } from './types/wedding';
+import { isRootDomainAccess } from './utils/urlAndTime';
 
 const STORAGE_KEY = 'sakinah_basic_invitation_config_v1';
 
@@ -60,6 +61,9 @@ export default function App() {
   });
   const guestName = rawGuestName.trim() || config.defaultGuestName;
   const [isOpened, setIsOpened] = useState<boolean>(false);
+  const [showShareFeature, setShowShareFeature] = useState<boolean>(() =>
+    isRootDomainAccess()
+  );
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     return new URLSearchParams(window.location.search).get('admin') === '1';
@@ -67,6 +71,14 @@ export default function App() {
 
   const activeTheme =
     WEDDING_THEMES[config.theme] || WEDDING_THEMES['modern-minimalist'];
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setShowShareFeature(isRootDomainAccess());
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     try {
@@ -87,16 +99,6 @@ export default function App() {
 
   const handleUpdateGuestName = (nextName: string) => {
     setRawGuestName(nextName);
-
-    if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
-      if (nextName.trim().length > 0 && nextName.trim() !== config.defaultGuestName) {
-        url.searchParams.set('to', nextName.trim());
-      } else {
-        url.searchParams.delete('to');
-      }
-      window.history.replaceState({}, '', url.toString());
-    }
   };
 
   const handleResetConfig = () => {
@@ -175,13 +177,15 @@ export default function App() {
                   >
                     Lokasi
                   </a>
-                  <a
-                    href="#bagikan"
-                    className="hover:opacity-75 transition-opacity whitespace-nowrap shrink-0"
-                    style={{ color: activeTheme.palette.textSecondary }}
-                  >
-                    Bagikan
-                  </a>
+                  {showShareFeature && (
+                    <a
+                      href="#bagikan"
+                      className="hover:opacity-75 transition-opacity whitespace-nowrap shrink-0"
+                      style={{ color: activeTheme.palette.textSecondary }}
+                    >
+                      Bagikan
+                    </a>
+                  )}
                 </nav>
 
                 <button
@@ -205,11 +209,13 @@ export default function App() {
               <CountdownSection config={config} theme={activeTheme} />
               <EventSection config={config} theme={activeTheme} />
               <LocationSection config={config} theme={activeTheme} />
-              <ShareSection
-                config={config}
-                theme={activeTheme}
-                currentGuestName={guestName}
-              />
+              {showShareFeature && (
+                <ShareSection
+                  config={config}
+                  theme={activeTheme}
+                  currentGuestName={guestName}
+                />
+              )}
             </main>
 
             <footer

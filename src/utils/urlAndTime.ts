@@ -99,6 +99,19 @@ export function getGuestNameFromUrl(fallback: string = 'Tamu Undangan'): string 
 }
 
 /**
+ * Menentukan apakah halaman diakses melalui domain utama (root URL tanpa slug dan tanpa parameter ?to= / ?guest=).
+ * Fitur "Kirim Link Undangan" hanya ditampilkan saat diakses di root domain (misal: https://namadomain.biz.id).
+ */
+export function isRootDomainAccess(): boolean {
+  if (typeof window === 'undefined') return true;
+  const pathname = window.location.pathname.replace(/\/+$/, '');
+  const hasSlugPath = pathname.length > 0 && pathname !== '/index.html';
+  const params = new URLSearchParams(window.location.search);
+  const hasGuestParam = Boolean((params.get('to') || params.get('guest') || '').trim());
+  return !hasSlugPath && !hasGuestParam;
+}
+
+/**
  * Membangun URL Google Maps yang valid dan siap dibuka dari smartphone maupun desktop.
  */
 export function buildGoogleMapsUrl(
@@ -128,7 +141,7 @@ export function buildGoogleMapsUrl(
 }
 
 /**
- * Membuat URL undangan dengan format domain .my.id (contoh: https://undangankita.my.id/aditya-amanda?to=Aditya)
+ * Membuat URL undangan dengan format domain kustom (contoh: https://namadomain.biz.id/aditya-amanda?to=Aditya)
  */
 export function buildCustomMyIdUrl(
   domain: string,
@@ -139,7 +152,7 @@ export function buildCustomMyIdUrl(
     .trim()
     .replace(/^https?:\/\//, '')
     .replace(/\/+$/, '');
-  const safeDomain = cleanDomain.endsWith('.my.id')
+  const safeDomain = cleanDomain.includes('.')
     ? cleanDomain
     : `${cleanDomain}.my.id`;
   const cleanSlug = (slug || 'aditya-amanda')
